@@ -22,60 +22,60 @@ ApplicationWindow {
         height: 100
         y: parent.height - height
         color: "red"
+
+        state: "SHOW_BOTTOM_MENU"
+        MouseArea{
+            anchors.fill: parent
+
+        }
+        states: [
+            State {
+                name: "SHOW_BOTTOM_MENU"
+                PropertyChanges { target: imgBottom;  y: mainWindow.height - imgBottom.height }
+
+            },
+            State {
+                name: "HIDDEN_BOTTOM_MENU"
+                PropertyChanges { target: imgBottom;  y: mainWindow.height}
+
+            }
+        ]
+
+        transitions: [
+            Transition {
+                from: "SHOW_BOTTOM_MENU"
+                to: "HIDDEN_BOTTOM_MENU"
+                PropertyAnimation { target: imgBottom; properties: "y"; duration: 1000; easing.type: Easing.OutExpo  }
+            },
+            Transition {
+                from: "HIDDEN_BOTTOM_MENU"
+                to: "SHOW_BOTTOM_MENU"
+                PropertyAnimation { target: imgBottom; properties: "y"; duration: 1000 ; easing.type: Easing.InExpo }
+
+            }
+        ]
+
+
         Button{
             id:btnStitchMove
             text: "btnStitchMove"
             anchors.centerIn: parent
 
             onClicked: {
-
-                if(mainWindow.myDisapper()){
+                console.log(imgBottom.state + zhToolMenu.visible + zhToolMenu.display)
+                if(mainWindow.myDisapper())
+                {
                     return;
                 }
 
-                if(zhToolMenu.visible == false)
-                {
-                    zhToolMenu.height_menu = 100
-                    zhToolMenu.display = true
+                zhToolMenu.height_menu = 100
+                zhToolMenu.display = true
 
-                    mainWindow.show_bottom_banner(false)
-                }
-
+                mainWindow.show_bottom_banner(false)
             }
-
-        }
-
-
-    }
-
-    PropertyAnimation {
-        id:	anim_bottom_banner_top_to_down
-        target:	imgBottom
-        from: mainWindow.height - imgBottom.height; to: mainWindow.height
-        properties: "y"
-        easing.type: "OutExpo"
-        duration: 1000
-        onStarted: {
-//          mainWindow._b_img_bottom_visible_state = false
-        }
-        onStopped: {
-            //btnHiddenIcon.source = '/Icon/Up'
         }
     }
-    PropertyAnimation {
-        id:	anim_bottom_banner_down_to_top
-        target:	imgBottom
-        from: mainWindow.height; to: mainWindow.height - imgBottom.height
-        properties: "y"
-        easing.type: "OutExpo"
-        duration: 1000
-        onStarted: {
-//            mainWindow._b_img_bottom_visible_state = true
-        }
-        onStopped: {
-            //btnHiddenIcon.source = '/Icon/Up'
-        }
-    }
+
     function myDisapper()
     {
 
@@ -83,15 +83,14 @@ ApplicationWindow {
 
     function show_bottom_banner(_b_show)
     {
-        if(_b_show)//imgBottom.y == mainWindow.height - imgBottom.height
+        if(_b_show)
         {
-            anim_bottom_banner_down_to_top.restart()
+            imgBottom.state = "SHOW_BOTTOM_MENU"
         }
-        else// if(imgBottom.y == mainWindow.height)
+        else
         {
-            anim_bottom_banner_top_to_down.restart();
+            imgBottom.state = "HIDDEN_BOTTOM_MENU"
         }
     }
-
 
 }

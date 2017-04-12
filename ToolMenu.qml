@@ -8,25 +8,50 @@ Rectangle {
     property bool display: false
     property rect rectHandle1: rectHandle1
     property real height_menu: height * 0.06
+
+    state: "HIDDEN_TOOL_MENU"
+
+    states: [
+        State {
+            name: "SHOW_TOOL_MENU"
+            PropertyChanges { target: toolMenu;  opacity: 1 }
+
+        },
+        State {
+            name: "HIDDEN_TOOL_MENU"
+            PropertyChanges { target: toolMenu;  opacity: 0}
+
+        }
+    ]
+
+    transitions: Transition {
+        PropertyAnimation { target: toolMenu; properties: "opacity"; duration: 1000 }
+    }
+
     onDisplayChanged: {
+        console.log(display + toolMenu.state)
+
         if(display)
         {
             toolMenu.visible = true
             toolMenu.opacity = 1
+            toolMenu.state = "SHOW_TOOL_MENU"
         }
         else
         {
-            animation_dissapper.restart()
+            toolMenu.state = "HIDDEN_TOOL_MENU"
         }
     }
+
     Text {
         id: debug_message
         text: qsTr("")
     }
+
     MouseArea{
         anchors.fill: parent
         onClicked: {
-            debug_message.text = "display: " + display + "- " + Math.random()
+            debug_message.text = "display: " + display + "- " + toolMenu.state + Math.random()
             if(display)
             {
                 mainWindow.show_bottom_banner(true)
@@ -35,16 +60,6 @@ Rectangle {
         }
     }
 
-    PropertyAnimation{
-        id:animation_dissapper
-        target:toolMenu ;
-        property:"opacity";
-        from:1; to:0;
-        duration:1000
-        onStopped: {
-            toolMenu.visible = false
-        }
-    }
 
     ListModel {
         id: funList
@@ -98,6 +113,5 @@ Rectangle {
             }
         }
     }
-
 
 }
