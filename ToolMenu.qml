@@ -11,6 +11,33 @@ Rectangle {
 
     state: "HIDDEN_TOOL_MENU"
 
+    //I want to set visible = false when the green dissappear.
+    //But the issue will occur here when I set visible = false as below code
+    states: [
+        State {
+            name: "SHOW_TOOL_MENU"
+            PropertyChanges { target: toolMenu;  opacity: 1 ; visible: true}
+
+        },
+        State {
+            name: "HIDDEN_TOOL_MENU"
+            PropertyChanges { target: toolMenu;  opacity: 0; visible: false}
+
+        }
+    ]
+
+    transitions: Transition {
+        SequentialAnimation {
+            PropertyAnimation { target: toolMenu; properties: "opacity"; duration: 1000}
+            PropertyAnimation { target: toolMenu; properties: "visible"}
+
+        }
+    }
+
+
+
+    /*
+//below code work fine here. The toolMenu.visible = true here when I let "toolMenu.opacity = 0". The toolMenu's mousearea event still occur when toolMenu disappear.That is what I want.
     states: [
         State {
             name: "SHOW_TOOL_MENU"
@@ -25,8 +52,13 @@ Rectangle {
     ]
 
     transitions: Transition {
-        PropertyAnimation { target: toolMenu; properties: "opacity"; duration: 1000 }
+        SequentialAnimation {
+            PropertyAnimation { target: toolMenu; properties: "opacity"; duration: 1000}
+
+        }
     }
+
+   */
 
     onDisplayChanged: {
         console.log(display + toolMenu.state)
@@ -52,6 +84,8 @@ Rectangle {
         anchors.fill: parent
         onClicked: {
             debug_message.text = "display: " + display + "- " + toolMenu.state + Math.random()
+            console.log(debug_message.text)
+
             if(display)
             {
                 mainWindow.show_bottom_banner(true)
