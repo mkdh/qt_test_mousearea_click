@@ -11,7 +11,7 @@ Rectangle {
 
     state: "HIDDEN_TOOL_MENU"
 
-    //I want to set visible = false when the green dissappear.
+    //I want to set visible = false when the green disappear.
     //But the issue will occur here when I set visible = false as below code
     states: [
         State {
@@ -37,7 +37,7 @@ Rectangle {
 
 
     /*
-//below code work fine here. The toolMenu.visible = true here when I let "toolMenu.opacity = 0". The toolMenu's mousearea event still occur when toolMenu disappear.That is what I want.
+//below code work fine here. The toolMenu.visible = true here when I let "toolMenu.opacity = 0". The toolMenu's mousearea event still occur when toolMenu disappear.That is not what I want.
     states: [
         State {
             name: "SHOW_TOOL_MENU"
