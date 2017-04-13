@@ -45,16 +45,15 @@ ApplicationWindow {
             Transition {
                 from: "SHOW_BOTTOM_MENU"
                 to: "HIDDEN_BOTTOM_MENU"
-                PropertyAnimation { target: imgBottom; properties: "y"; duration: 1000; easing.type: Easing.OutExpo  }
+                PropertyAnimation { target: imgBottom; properties: "y"; duration: 500; easing.type: Easing.OutExpo  }
             },
             Transition {
                 from: "HIDDEN_BOTTOM_MENU"
                 to: "SHOW_BOTTOM_MENU"
-                PropertyAnimation { target: imgBottom; properties: "y"; duration: 1000 ; easing.type: Easing.InExpo }
+                PropertyAnimation { target: imgBottom; properties: "y"; duration: 500 ; easing.type: Easing.InExpo }
 
             }
         ]
-
 
         Button{
             id:btnStitchMove
@@ -92,5 +91,12 @@ ApplicationWindow {
             imgBottom.state = "HIDDEN_BOTTOM_MENU"
         }
     }
-
+    Text {
+        id: debug_message
+        text: qsTr("")
+    }
+    function set_txt_debug_message(_txt_debug_message)
+    {
+        debug_message.text = _txt_debug_message
+    }
 }
