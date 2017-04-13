@@ -213,7 +213,7 @@ Rectangle {
     }
 */
     // not ok:method 4
-    // I think I could remove toolMenu's onClicked event. And I seem the result should be the same with method 3
+    // I think I could remove toolMenu's onClicked event. And I think the result should be the same with method 3
 
     // update:
     // Hence, I remove toolMenu's onClicked event in the method 4.
