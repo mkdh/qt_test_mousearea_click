@@ -58,6 +58,8 @@ ApplicationWindow {
             id:btnStitchMove
             text: "btnStitchMove"
             anchors.centerIn: parent
+
+            // ### I add enable value here
             enabled: zhToolMenu.opacity == 0
 
             onClicked: {
