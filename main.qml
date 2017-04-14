@@ -12,7 +12,6 @@ ApplicationWindow {
     ToolMenu {
         id: zhToolMenu
         anchors.fill: parent
-
         visible: false
     }
 
@@ -59,6 +58,7 @@ ApplicationWindow {
             id:btnStitchMove
             text: "btnStitchMove"
             anchors.centerIn: parent
+            enabled: zhToolMenu.opacity == 0
 
             onClicked: {
                 console.log(imgBottom.state + zhToolMenu.visible + zhToolMenu.display)
@@ -75,26 +75,20 @@ ApplicationWindow {
         }
     }
 
-    function myDisapper()
-    {
-
-    }
-
-    function show_bottom_banner(_b_show)
-    {
-        if(_b_show)
-        {
-            imgBottom.state = "SHOW_BOTTOM_MENU"
-        }
-        else
-        {
-            imgBottom.state = "HIDDEN_BOTTOM_MENU"
-        }
-    }
     Text {
         id: debug_message
         text: qsTr("")
     }
+
+    function myDisapper()
+    {
+    }
+
+    function show_bottom_banner(_b_show)
+    {
+        imgBottom.state = _b_show ? "SHOW_BOTTOM_MENU" : "HIDDEN_BOTTOM_MENU"
+    }
+
     function set_txt_debug_message(_txt_debug_message)
     {
         debug_message.text = _txt_debug_message
