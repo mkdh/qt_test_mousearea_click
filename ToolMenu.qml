@@ -11,6 +11,7 @@ Rectangle {
 
     property string tag: "ToolMenu.qml => "
     state: "HIDDEN_TOOL_MENU"
+    enabled: imgBottom.state != "SHOW_BOTTOM_MENU"
 
     onOpacityChanged: {
         visible = opacity != 0
